@@ -1,0 +1,20 @@
+{application, aircraft_id, [
+    {description, "Identify the aircraft most likely flying overhead via OpenSky and ADSBDB"},
+    {vsn, "0.1.0"},
+    {registered, [aircraft_id_sup]},
+    {applications, [
+        kernel,
+        stdlib,
+        inets,
+        ssl,
+        public_key
+    ]},
+    {mod, {aircraft_id_app, []}},
+    {env, [
+        {start_server, false},
+        {config, #{}}
+    ]},
+    {modules, []},
+    {licenses, ["MPL-2.0"]},
+    {links, [{"GitHub", "https://github.com/ttornkvi/aircraft-identification"}]}
+]}.

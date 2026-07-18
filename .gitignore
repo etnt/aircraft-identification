@@ -1,0 +1,12 @@
+# rebar3
+/_build/
+/rebar.lock
+
+# Erlang
+*.beam
+*.plt
+erl_crash.dump
+
+# OS
+.DS_Store
+.vscode/
