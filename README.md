@@ -306,6 +306,13 @@ that returns canned responses — no network required.
 - [plans/implementation.md](plans/implementation.md) — build plan, module status,
   milestones, and open decisions.
 
+## Companion mobile app
+
+A Flutter app, **Sky Overhead**, provides a phone-friendly front end over the
+same OpenSky/ADSBDB data and identification logic. See
+[mobile/README.md](mobile/README.md) for setup, running on a device, and
+configuration.
+
 ## License
 
 [MPL-2.0](LICENSE).

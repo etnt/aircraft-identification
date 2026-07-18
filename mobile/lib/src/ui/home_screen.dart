@@ -9,6 +9,7 @@ import '../state/config_provider.dart';
 import '../state/identify_controller.dart';
 import 'location_bar.dart';
 import 'result_card.dart';
+import 'settings_dialog.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -20,7 +21,16 @@ class HomeScreen extends ConsumerWidget {
     final isLoading = state is IdentifyLoading;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Sky Overhead')),
+      appBar: AppBar(
+        title: const Text('Sky Overhead'),
+        actions: [
+          IconButton(
+            tooltip: 'Settings',
+            onPressed: () => showSettingsDialog(context, ref),
+            icon: const Icon(Icons.tune),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),

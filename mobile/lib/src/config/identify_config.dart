@@ -26,9 +26,9 @@ class IdentifyConfig {
     required this.latitude,
     required this.longitude,
     this.elevationM = 0.0,
-    this.searchRadiusKm = 20.0,
+    this.searchRadiusKm = 30.0,
     this.maxPositionAgeS = 20,
-    this.minElevationDeg = 45.0,
+    this.minElevationDeg = 18.0,
     this.ambiguityMarginDeg = 8.0,
   });
 
