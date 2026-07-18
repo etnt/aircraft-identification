@@ -5,9 +5,9 @@
 %%% returns the positional candidate unchanged with an `enrichment_status'
 %%% field, never discarding a valid OpenSky result.
 %%%
-%%% NOTE: the exact ADSBDB response field names below are a best-effort
-%%% mapping and MUST be verified against the live API before release
-%%% (see plans/implementation.md, provider task).
+%%% The response field names below were verified against the live ADSBDB
+%%% API on 2026-07-18 (icao24 `3c6745' / callsign `DLH804' returned
+%%% registration `D-AIZE', an Airbus A320, and the full FRA->ARN route).
 %%% @end
 %%%-------------------------------------------------------------------
 -module(aircraft_id_adsbdb).

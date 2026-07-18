@@ -24,8 +24,6 @@ Status legend: `[ ]` todo, `[~]` scaffolded (stub/partial), `[x]` done.
 
 ## Open decisions (must close before release)
 
-- **ADSBDB response schema:** the field mapping in `aircraft_id_adsbdb:parse/1`
-  is a best-effort guess and MUST be verified against a live/recorded response.
 - **HexDB fallback:** shape and field-merge policy (`aircraft_id_hexdb` is a stub).
 - **Transport error taxonomy:** confirm the exact `httpc` error terms to map to
   `dns_failed` / `tls_failed` / `network_unavailable` / `opensky_timeout`.
@@ -44,7 +42,7 @@ Status legend: `[ ]` todo, `[~]` scaffolded (stub/partial), `[x]` done.
 | `aircraft_id_json` | JSON codec behaviour | `[x]` |
 | `aircraft_id_json_otp` | Default OTP `json` adapter | `[x]` |
 | `aircraft_id_opensky` | OpenSky request/parse/fetch | `[~]` parse minimal |
-| `aircraft_id_adsbdb` | ADSBDB enrichment | `[~]` schema unverified |
+| `aircraft_id_adsbdb` | ADSBDB enrichment | `[x]` schema verified against live API |
 | `aircraft_id_hexdb` | Optional HexDB fallback | `[~]` stub |
 | `aircraft_id_server` | Optional serialized owner | `[~]` skeleton |
 | `aircraft_id_app` / `_sup` | Optional application/supervisor | `[~]` skeleton |
@@ -77,9 +75,10 @@ Status legend: `[ ]` todo, `[~]` scaffolded (stub/partial), `[x]` done.
 ### M3 — Providers + orchestration
 
 - [~] `aircraft_id_opensky:build_url/1`, `parse_states/1`, `fetch_states/1`.
-- [~] `aircraft_id_adsbdb:build_url/2`, `enrich/3`, `parse/1`.
+- [x] `aircraft_id_adsbdb:build_url/2`, `enrich/3`, `parse/1`.
 - [~] `aircraft_id:identify/1,2` end-to-end via injected transport.
-- [ ] Verify ADSBDB schema and finish `parse/1` field mapping + photo URL.
+- [x] Verify ADSBDB schema and `parse/1` field mapping + photo URL (confirmed
+      2026-07-18 against `3c6745`/`DLH804` → `D-AIZE`, full FRA→ARN route).
 - [ ] Confirm transport error classification with real `httpc` error terms.
 
 ### M4 — Optional process + integration
