@@ -16,7 +16,9 @@ class ResultCard extends StatelessWidget {
     final candidate = result.candidate!;
     final theme = Theme.of(context);
     final subtitle = fmt.aircraftSubtitle(candidate);
-    final route = fmt.routeText(candidate);
+    final origin = fmt.airportLabel(candidate.origin);
+    final destination = fmt.airportLabel(candidate.destination);
+    final hasRoute = origin != null || destination != null;
     final airline = candidate.airline?.trim();
     final operator =
         (airline != null && airline.isNotEmpty) ? airline : candidate.registeredOwnerOperator?.trim();
@@ -58,14 +60,16 @@ class ResultCard extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(subtitle, style: theme.textTheme.bodyMedium),
                 ],
-                if (route != null) ...[
+                if (hasRoute) ...[
+                  const SizedBox(height: 8),
+                  _RouteLine(
+                    icon: Icons.flight_takeoff,
+                    label: origin ?? 'Unknown origin',
+                  ),
                   const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      const Icon(Icons.flight_takeoff, size: 16),
-                      const SizedBox(width: 6),
-                      Text(route, style: theme.textTheme.bodyMedium),
-                    ],
+                  _RouteLine(
+                    icon: Icons.flight_land,
+                    label: destination ?? 'Unknown destination',
                   ),
                 ],
                 const SizedBox(height: 16),
@@ -114,6 +118,28 @@ class _Photo extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class _RouteLine extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _RouteLine({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, size: 16, color: theme.colorScheme.primary),
+        const SizedBox(width: 6),
+        Expanded(
+          child: Text(label, style: theme.textTheme.bodyMedium),
+        ),
+      ],
     );
   }
 }

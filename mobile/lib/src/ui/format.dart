@@ -94,6 +94,19 @@ String? routeText(Candidate c) {
   return '${from ?? '?'} → ${to ?? '?'}';
 }
 
+/// A full airport label combining name and code, e.g. "Stockholm Arlanda
+/// (ARN)". Falls back to just the name, or just the code, or null when
+/// nothing is known.
+String? airportLabel(Airport? airport) {
+  if (airport == null) return null;
+  final name = airport.name?.trim();
+  final code = _airportCode(airport);
+  if (name != null && name.isNotEmpty) {
+    return code != null ? '$name ($code)' : name;
+  }
+  return code;
+}
+
 String? _airportCode(Airport? airport) {
   if (airport == null) return null;
   final iata = airport.iata?.trim();

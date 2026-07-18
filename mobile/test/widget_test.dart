@@ -75,7 +75,8 @@ void main() {
     expect(find.text('DLH804'), findsOneWidget);
     expect(find.text('Lufthansa'), findsOneWidget);
     expect(find.text('High confidence'), findsOneWidget);
-    expect(find.text('FRA → ARN'), findsOneWidget);
+    expect(find.text('Frankfurt (FRA)'), findsOneWidget);
+    expect(find.text('Arlanda (ARN)'), findsOneWidget);
   });
 
   testWidgets('tap shows clear-skies empty state for no match', (tester) async {
