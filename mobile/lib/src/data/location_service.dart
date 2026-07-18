@@ -2,6 +2,8 @@
 /// never touch the plugin directly.
 library;
 
+import 'dart:io' show Platform;
+
 import 'package:geolocator/geolocator.dart';
 
 /// Why a location request could not be fulfilled.
@@ -86,10 +88,7 @@ class GeolocatorLocationService implements LocationService {
 
     try {
       final position = await Geolocator.getCurrentPosition(
-        locationSettings: const LocationSettings(
-          accuracy: LocationAccuracy.medium,
-          timeLimit: Duration(seconds: 15),
-        ),
+        locationSettings: _locationSettings(),
       );
       return LocationFix(
         latitude: position.latitude,
@@ -99,5 +98,24 @@ class GeolocatorLocationService implements LocationService {
     } catch (_) {
       throw const LocationException(LocationErrorKind.unavailable);
     }
+  }
+
+  /// Location settings tuned per platform.
+  ///
+  /// On Android we force the platform `LocationManager` instead of the Google
+  /// Play Services fused provider. The fused provider throws an uncaught
+  /// native exception (GMS `ApiException: 22`) on emulators and devices
+  /// without working Play Services, which would crash the whole app.
+  LocationSettings _locationSettings() {
+    const accuracy = LocationAccuracy.medium;
+    const timeLimit = Duration(seconds: 15);
+    if (Platform.isAndroid) {
+      return AndroidSettings(
+        accuracy: accuracy,
+        timeLimit: timeLimit,
+        forceLocationManager: true,
+      );
+    }
+    return const LocationSettings(accuracy: accuracy, timeLimit: timeLimit);
   }
 }
