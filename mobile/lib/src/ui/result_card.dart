@@ -99,25 +99,19 @@ class _Photo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: Image.network(
-        url,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stack) => Container(
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
-          alignment: Alignment.center,
-          child: const Icon(Icons.flight, size: 48),
-        ),
-        loadingBuilder: (context, child, progress) {
-          if (progress == null) return child;
-          return Container(
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
-            alignment: Alignment.center,
-            child: const CircularProgressIndicator(),
-          );
-        },
-      ),
+    return Image.network(
+      url,
+      fit: BoxFit.cover,
+      width: double.infinity,
+      // Collapse the photo area entirely if the image can't be loaded, so a
+      // broken/missing photo URL doesn't reserve a large empty block.
+      errorBuilder: (context, error, stack) => const SizedBox.shrink(),
+      // Only reserve 16:9 space once an actual frame is available; while
+      // loading, take up no space rather than showing a grey placeholder.
+      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+        if (frame == null) return const SizedBox.shrink();
+        return AspectRatio(aspectRatio: 16 / 9, child: child);
+      },
     );
   }
 }
