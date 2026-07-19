@@ -309,9 +309,8 @@ that returns canned responses — no network required.
 ## Companion mobile app
 
 A Flutter app, **Sky Overhead**, provides a phone-friendly front end over the
-same OpenSky/ADSBDB data and identification logic. See
-[mobile/README.md](mobile/README.md) for setup, running on a device, and
-configuration.
+same OpenSky/ADSBDB data and identification logic. It lives in its own
+repository: [etnt/skyoverhead](https://github.com/etnt/skyoverhead).
 
 ## License
 
