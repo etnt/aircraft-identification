@@ -107,6 +107,7 @@ message_for(opensky_timeout) -> <<"The aircraft service did not respond in time"
 message_for(opensky_rate_limited) -> <<"The aircraft service is rate limiting requests">>;
 message_for(opensky_unauthorized) -> <<"The aircraft service rejected the request">>;
 message_for(opensky_bad_response) -> <<"The aircraft service returned an invalid response">>;
+message_for(opensky_unavailable) -> <<"The aircraft service is temporarily unavailable">>;
 message_for(_) -> <<"The aircraft service request failed">>.
 
 -spec detail(term()) -> binary().

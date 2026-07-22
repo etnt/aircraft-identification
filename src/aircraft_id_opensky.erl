@@ -54,6 +54,8 @@ fetch_states(#{http := Http, json := Json, config := Config}) ->
             {error, opensky_unauthorized};
         {ok, 429, _H, _B} ->
             {error, opensky_rate_limited};
+        {ok, 503, _H, _B} ->
+            {error, opensky_unavailable};
         {ok, Status, _H, _B} when Status >= 500 ->
             {error, opensky_bad_response};
         {ok, _Status, _H, _B} ->
